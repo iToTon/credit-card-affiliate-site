@@ -3,7 +3,7 @@
 
 export const siteConfig = {
   // サイト名(仮)
-  name: "TODO: サイト名を決めてください",
+  name: "クレジットカード辞典",
   // サイトの説明(SEOのdescriptionにも使用)
   description: "クレジットカードの比較・選び方を分かりやすく紹介するメディアです。",
   // 本番公開後のURL(末尾スラッシュなし)。astro.config.mjs の `site` とも合わせること。
@@ -14,8 +14,8 @@ export const siteConfig = {
   lang: "ja",
   // 運営者情報(プライバシーポリシー・サイトについてページ用)
   operator: {
-    name: "TODO: 運営者名(屋号 or 氏名)",
-    contact: "TODO: 問い合わせ先メールアドレス",
+    name: "いととん",
+    contact: "itotonn.info@gmail.com",
     // 特定商取引法に基づく表記は「直接商品・サービスを販売する場合」に必要です。
     // 純粋なアフィリエイト紹介(他社サイトへの送客のみ)の場合は必須ではありませんが、
     // 運営者情報の明示はASP審査・読者の信頼性の観点から強く推奨されます。
