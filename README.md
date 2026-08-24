@@ -55,7 +55,7 @@ Astro + Tailwind CSS で構築した静的サイトです。Cloudflare Pages / V
    - A8.net、もしもアフィリエイト、バリューコマース など
    - クレジットカード案件は審査があり、**サイトに一定量の記事と運営者情報・プライバシーポリシーが揃っていること**を求められるのが一般的です。まず記事を数本公開してから申請するのがおすすめです
 4. **Cloudflare Pages へのデプロイ**
-   - GitHubリポジトリを作成しこのプロジェクトをpush → Cloudflare Pagesと連携するとpush毎に自動デプロイされます
+   - 詳しい手順は [DEPLOY.md](DEPLOY.md) を参照してください
    - ビルドコマンド: `npm run build` / 出力ディレクトリ: `dist`
 5. **`src/site.config.ts` の `url` とドメインの紐付け後、`astro.config.mjs` の `site` にも自動反映されます(同じ値を参照しているため再ビルドのみでOK)**
 
