@@ -1,0 +1,38 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { categories } from "../../site.config";
+
+export async function getStaticPaths() {
+  return categories.map((c) => ({
+    params: { slug: c.slug },
+    props: { category: c },
+  }));
+}
+
+const { category } = Astro.props;
+const allArticles = await getCollection(
+  "articles",
+  ({ data }) => !data.draft && data.category === category.slug,
+);
+const sorted = allArticles.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+---
+
+<BaseLayout title={category.name} description={category.description}>
+  <h1 class="mb-2 text-2xl font-bold text-slate-900">{category.name}</h1>
+  <p class="mb-6 text-slate-600">{category.description}</p>
+
+  {sorted.length === 0 && <p class="text-slate-500">このカテゴリーの記事はまだありません。</p>}
+  <ul class="space-y-4">
+    {
+      sorted.map((article) => (
+        <li class="border-b border-slate-100 pb-4">
+          <a href={`/articles/${article.id}/`} class="text-lg font-semibold text-slate-900 hover:text-blue-700">
+            {article.data.title}
+          </a>
+          <p class="mt-1 text-sm text-slate-500">{article.data.description}</p>
+        </li>
+      ))
+    }
+  </ul>
+</BaseLayout>

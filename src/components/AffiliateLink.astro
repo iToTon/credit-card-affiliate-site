@@ -1,0 +1,21 @@
+---
+// アフィリエイトリンク用コンポーネント。
+// - rel="sponsored nofollow noopener" で検索エンジンに広告リンクであることを明示
+// - 見た目にも [PR] を付け、景品表示法のステルスマーケティング規制(2023年10月施行)に対応
+interface Props {
+  href: string;
+  class?: string;
+}
+
+const { href, class: className = "" } = Astro.props;
+---
+
+<a
+  href={href}
+  rel="sponsored nofollow noopener"
+  target="_blank"
+  class={`font-semibold text-blue-700 underline decoration-blue-300 underline-offset-2 hover:text-blue-900 ${className}`}
+>
+  <slot />
+  <span class="ml-1 text-xs font-normal text-slate-400">[PR]</span>
+</a>

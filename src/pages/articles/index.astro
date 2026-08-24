@@ -1,0 +1,31 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { categories } from "../../site.config";
+
+const allArticles = await getCollection("articles", ({ data }) => !data.draft);
+const sorted = allArticles.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+---
+
+<BaseLayout title="記事一覧" description="これまでに公開した記事の一覧です。">
+  <h1 class="mb-6 text-2xl font-bold text-slate-900">記事一覧</h1>
+  {sorted.length === 0 && <p class="text-slate-500">まだ記事がありません。</p>}
+  <ul class="space-y-4">
+    {
+      sorted.map((article) => {
+        const categoryInfo = categories.find((c) => c.slug === article.data.category);
+        return (
+          <li class="border-b border-slate-100 pb-4">
+            {categoryInfo && (
+              <span class="mr-2 text-xs font-semibold text-blue-600">{categoryInfo.name}</span>
+            )}
+            <a href={`/articles/${article.id}/`} class="text-lg font-semibold text-slate-900 hover:text-blue-700">
+              {article.data.title}
+            </a>
+            <p class="mt-1 text-sm text-slate-500">{article.data.description}</p>
+          </li>
+        );
+      })
+    }
+  </ul>
+</BaseLayout>

@@ -1,0 +1,44 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { siteConfig } from "../site.config";
+---
+
+<BaseLayout title="運営者情報" description="サイトの運営者情報です。">
+  <h1 class="mb-6 text-2xl font-bold text-slate-900">運営者情報</h1>
+
+  <div class="prose prose-slate max-w-none">
+    <table>
+      <tbody>
+        <tr>
+          <th>運営者</th>
+          <td>{siteConfig.operator.name}</td>
+        </tr>
+        <tr>
+          <th>お問い合わせ</th>
+          <td>{siteConfig.operator.contact}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>本サイトについて</h2>
+    <p>
+      {siteConfig.name}は、{siteConfig.description}
+      掲載している情報は、公開時点の情報をもとに作成しています。商品・サービスの内容や条件(年会費・還元率・特典など)は
+      予告なく変更される場合がありますので、お申し込みの際は必ず公式サイトで最新情報をご確認ください。
+    </p>
+
+    <h2>アフィリエイトプログラムについて</h2>
+    <p>
+      本サイトは、A8.net、もしもアフィリエイト等のアフィリエイトプログラムに参加し、企業・サービス提供元より
+      広告収益を得て運営しています。記事内のリンクを経由して商品・サービスに申し込みがあった場合、当サイトが
+      紹介料を受け取ることがあります。ただし、紹介料の有無が記事の評価や比較結果に影響することはありません。
+    </p>
+
+    <h2>免責事項</h2>
+    <p>
+      当サイトの情報の正確性・完全性・最新性については万全を期しておりますが、内容を保証するものではありません。
+      当サイトの情報を利用したことにより生じた損害等について、運営者は一切の責任を負いかねます。
+      金融商品のお申し込みは、必ずご自身の判断と責任において行ってください。
+    </p>
+  </div>
+</BaseLayout>
