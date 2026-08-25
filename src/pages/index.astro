@@ -8,19 +8,19 @@ const latest = allArticles.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubD
 ---
 
 <BaseLayout title={siteConfig.name} description={siteConfig.description}>
-  <section class="mb-10">
-    <h1 class="mb-3 text-2xl font-bold text-slate-900">{siteConfig.name}</h1>
-    <p class="text-slate-600">{siteConfig.description}</p>
+  <section class="mb-14">
+    <h1 class="mb-4 font-heading text-3xl font-bold text-navy-900">{siteConfig.name}</h1>
+    <p class="max-w-xl leading-relaxed text-slate-600">{siteConfig.description}</p>
   </section>
 
-  <section class="mb-10">
-    <h2 class="mb-4 text-lg font-semibold text-slate-900">カテゴリー</h2>
+  <section class="mb-14">
+    <h2 class="mb-5 font-heading text-lg font-bold text-navy-900">カテゴリー</h2>
     <div class="flex flex-wrap gap-2">
       {
         categories.map((c) => (
           <a
             href={`/category/${c.slug}/`}
-            class="rounded-full border border-slate-300 px-4 py-1.5 text-sm text-slate-700 hover:border-blue-400 hover:text-blue-700"
+            class="rounded-full border-[1.5px] border-navy-700 px-5 py-2 text-sm font-semibold text-navy-700 hover:bg-navy-700 hover:text-white"
           >
             {c.name}
           </a>
@@ -30,19 +30,30 @@ const latest = allArticles.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubD
   </section>
 
   <section>
-    <h2 class="mb-4 text-lg font-semibold text-slate-900">新着記事</h2>
+    <h2 class="mb-6 font-heading text-lg font-bold text-navy-900">新着記事</h2>
     {latest.length === 0 && <p class="text-slate-500">まだ記事がありません。</p>}
-    <ul class="space-y-4">
+    <div class="grid gap-5 sm:grid-cols-2">
       {
-        latest.map((article) => (
-          <li class="border-b border-slate-100 pb-4">
-            <a href={`/articles/${article.id}/`} class="text-lg font-semibold text-slate-900 hover:text-blue-700">
-              {article.data.title}
+        latest.map((article) => {
+          const categoryInfo = categories.find((c) => c.slug === article.data.category);
+          return (
+            <a
+              href={`/articles/${article.id}/`}
+              class="group flex flex-col gap-2.5 rounded-[10px] border border-slate-200 bg-white p-5 shadow-[0_1px_2px_rgba(20,20,30,0.06),0_4px_12px_rgba(20,20,30,0.06)]"
+            >
+              {categoryInfo && (
+                <span class="w-fit rounded-md bg-navy-700 px-2.5 py-1 text-xs font-semibold text-white">
+                  {categoryInfo.name}
+                </span>
+              )}
+              <span class="font-heading text-[17px] font-semibold leading-snug text-slate-900 group-hover:text-navy-700 group-hover:underline">
+                {article.data.title}
+              </span>
+              <span class="text-[13px] leading-relaxed text-slate-500">{article.data.description}</span>
             </a>
-            <p class="mt-1 text-sm text-slate-500">{article.data.description}</p>
-          </li>
-        ))
+          );
+        })
       }
-    </ul>
+    </div>
   </section>
 </BaseLayout>

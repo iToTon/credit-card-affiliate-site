@@ -3,17 +3,17 @@ import { siteConfig } from "../site.config";
 const year = new Date().getFullYear();
 ---
 
-<footer class="mt-12 border-t border-slate-200">
-  <div class="mx-auto max-w-3xl px-4 py-8 text-sm text-slate-500">
-    <p class="mb-3">
+<footer class="mt-12 bg-navy-900">
+  <div class="mx-auto max-w-3xl px-4 py-10 text-sm text-navy-50/70">
+    <p class="mb-5 max-w-xl leading-relaxed">
       本サイトはアフィリエイトプログラム(広告)を利用しています。記事内のリンクを経由して商品・サービスに申し込むと、
       当サイトが提携先企業から紹介料を受け取る場合があります。
     </p>
-    <nav class="mb-4 flex flex-wrap gap-4">
-      <a href="/about/" class="hover:text-slate-800">運営者情報</a>
-      <a href="/privacy-policy/" class="hover:text-slate-800">プライバシーポリシー</a>
-      <a href="/articles/" class="hover:text-slate-800">記事一覧</a>
+    <nav class="mb-5 flex flex-wrap gap-6 text-navy-50/80">
+      <a href="/about/" class="hover:text-white">運営者情報</a>
+      <a href="/privacy-policy/" class="hover:text-white">プライバシーポリシー</a>
+      <a href="/articles/" class="hover:text-white">記事一覧</a>
     </nav>
-    <p>&copy; {year} {siteConfig.name}</p>
+    <p class="text-xs text-navy-50/50">&copy; {year} {siteConfig.name}</p>
   </div>
 </footer>

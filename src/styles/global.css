@@ -1,2 +1,20 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
+
+@theme {
+  --color-canvas: oklch(98.3% 0.004 85);
+  --color-navy-50: oklch(95% 0.015 255);
+  --color-navy-500: oklch(50% 0.09 255);
+  --color-navy-700: oklch(37% 0.09 255);
+  --color-navy-800: oklch(31% 0.075 255);
+  --color-navy-900: oklch(26% 0.06 255);
+  --color-gold-100: oklch(94% 0.045 85);
+  --color-gold-600: oklch(62% 0.13 75);
+  --color-gold-700: oklch(52% 0.12 75);
+  --font-heading: "Shippori Mincho", "Hiragino Mincho ProN", "Yu Mincho", serif;
+  --font-body: "Noto Sans JP", "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif;
+}
+
+body {
+  font-family: var(--font-body);
+}
