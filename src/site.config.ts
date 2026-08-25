@@ -1,13 +1,12 @@
 // サイト全体の設定を一箇所にまとめたファイル。
-// TODO: 実際のドメイン取得後・サイト名/運営者情報が決まり次第、ここを更新してください。
 
 export const siteConfig = {
-  // サイト名(仮)
+  // サイト名
   name: "クレジットカード辞典",
   // サイトの説明(SEOのdescriptionにも使用)
   description: "クレジットカードの比較・選び方を分かりやすく紹介するメディアです。",
   // 本番公開後のURL(末尾スラッシュなし)。astro.config.mjs の `site` とも合わせること。
-  url: "https://example.com",
+  url: "https://cc-jiten.com",
   // デフォルトのOGP画像パス(public/配下に配置)
   defaultOgImage: "/og-default.png",
   // サイトの言語
