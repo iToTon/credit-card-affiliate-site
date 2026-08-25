@@ -23,12 +23,12 @@ const dateFormat: Intl.DateTimeFormatOptions = { year: "numeric", month: "long",
     {categoryInfo && (
       <a
         href={`/category/${categoryInfo.slug}/`}
-        class="mb-3 inline-block text-xs font-bold text-navy-700 hover:underline"
+        class="mb-4 inline-block rounded bg-blue-50 px-2.5 py-1 text-xs font-bold text-blue-700 hover:underline"
       >
         {categoryInfo.name}
       </a>
     )}
-    <h1 class="mb-3 font-heading text-3xl font-bold leading-snug text-navy-900">{title}</h1>
+    <h1 class="mb-3 text-3xl font-extrabold leading-snug tracking-tight text-ink">{title}</h1>
     <div class="mb-7 text-sm text-slate-500">
       <time datetime={pubDate.toISOString()}>
         {pubDate.toLocaleDateString("ja-JP", dateFormat)} 公開
@@ -42,7 +42,7 @@ const dateFormat: Intl.DateTimeFormatOptions = { year: "numeric", month: "long",
 
     <AdDisclosure />
 
-    <div class="prose prose-slate max-w-none prose-headings:font-heading prose-headings:text-navy-900 prose-a:text-navy-700 prose-a:no-underline hover:prose-a:underline prose-strong:text-navy-900">
+    <div class="prose prose-slate max-w-none prose-headings:font-extrabold prose-headings:text-ink prose-a:text-blue-600 prose-a:no-underline hover:prose-a:underline prose-strong:text-ink">
       <slot />
     </div>
   </article>

@@ -19,17 +19,17 @@ const sorted = allArticles.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubD
 ---
 
 <BaseLayout title={category.name} description={category.description}>
-  <h1 class="mb-2 font-heading text-2xl font-bold text-navy-900">{category.name}</h1>
+  <h1 class="mb-2 text-2xl font-extrabold tracking-tight text-ink">{category.name}</h1>
   <p class="mb-8 text-slate-600">{category.description}</p>
 
   {sorted.length === 0 && <p class="text-slate-500">このカテゴリーの記事はまだありません。</p>}
   <div class="divide-y divide-slate-200">
     {
       sorted.map((article) => (
-        <div class="flex flex-col gap-2 py-5 first:pt-0">
+        <div class="flex flex-col gap-2.5 py-6 first:pt-0">
           <a
             href={`/articles/${article.id}/`}
-            class="font-heading text-lg font-semibold text-slate-900 hover:text-navy-700 hover:underline"
+            class="text-lg font-extrabold text-ink hover:underline"
           >
             {article.data.title}
           </a>
