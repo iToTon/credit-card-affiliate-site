@@ -1,6 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import { siteConfig } from "../site.config";
+import { siteConfig, asps } from "../site.config";
 ---
 
 <BaseLayout title="プライバシーポリシー" description="個人情報の取り扱いについて。">
@@ -25,7 +25,7 @@ import { siteConfig } from "../site.config";
 
     <h2>広告配信について</h2>
     <p>
-      当サイトは、A8.net等のアフィリエイトプログラムを利用し、第三者配信の広告サービスを利用することがあります。
+      当サイトは、{asps.join("、")}等のアフィリエイトプログラムを利用し、第三者配信の広告サービスを利用することがあります。
       広告配信事業者は、ユーザーの興味に応じた広告を表示するためにCookieを使用することがあります。
       Cookieを無効にする方法や、各広告配信事業者のプライバシーポリシーについては、各社のサイトをご確認ください。
     </p>

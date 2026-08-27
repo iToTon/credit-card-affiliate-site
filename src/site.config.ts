@@ -21,6 +21,11 @@ export const siteConfig = {
   },
 } as const;
 
+// 利用中のASP(アフィリエイトサービスプロバイダー)。
+// プライバシーポリシーの「広告配信について」に自動反映されます。
+// 新しいASPと提携したら、この配列に追加するだけでOKです。
+export const asps = ["A8.net"] as const;
+
 // 記事カテゴリ(サブジャンル)。最初は「クレジットカード比較」のみ。後で追加可能。
 export const categories = [
   {
