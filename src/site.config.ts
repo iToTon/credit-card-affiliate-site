@@ -30,9 +30,9 @@ export const asps = ["A8.net"] as const;
 // 導入時はidやcontentの値を埋めるだけでOK(BaseLayout.astro側で条件分岐済み)。
 export const analyticsConfig = {
   // GA4測定ID。例: "G-XXXXXXXXXX"
-  gaMeasurementId: "",
+  gaMeasurementId: "G-29SDF2TSCL",
   // Search Console のHTMLタグ確認用content値
-  googleSiteVerification: "",
+  googleSiteVerification: "yNABztlPdOkk5k21Gsr9J",
 } as const;
 
 // 記事カテゴリ(サブジャンル)。
