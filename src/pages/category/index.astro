@@ -1,0 +1,18 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { categories } from "../../site.config";
+---
+
+<BaseLayout title="カテゴリー一覧" description="記事カテゴリーの一覧です。">
+  <h1 class="mb-8 text-2xl font-extrabold tracking-tight text-ink">カテゴリー一覧</h1>
+  <div class="grid gap-5 sm:grid-cols-2">
+    {
+      categories.map((c) => (
+        <a href={`/category/${c.slug}/`} class="group flex flex-col gap-2 rounded border border-slate-200 p-6">
+          <span class="text-lg font-extrabold text-ink group-hover:underline">{c.name}</span>
+          <span class="text-[13px] leading-relaxed text-ink-muted">{c.description}</span>
+        </a>
+      ))
+    }
+  </div>
+</BaseLayout>

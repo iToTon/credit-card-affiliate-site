@@ -1,9 +1,13 @@
 ---
 import BaseLayout from "./BaseLayout.astro";
 import AdDisclosure from "../components/AdDisclosure.astro";
+import Breadcrumbs from "../components/Breadcrumbs.astro";
+import RelatedArticles from "../components/RelatedArticles.astro";
 import { categories } from "../site.config";
+import { articleSchema, breadcrumbListSchema } from "../schema";
 
 interface Props {
+  slug: string;
   title: string;
   description: string;
   category: string;
@@ -12,14 +16,28 @@ interface Props {
   ogImage?: string;
 }
 
-const { title, description, category, pubDate, updatedDate, ogImage } = Astro.props;
+const { slug, title, description, category, pubDate, updatedDate, ogImage } = Astro.props;
 const categoryInfo = categories.find((c) => c.slug === category);
 
 const dateFormat: Intl.DateTimeFormatOptions = { year: "numeric", month: "long", day: "numeric" };
+
+const articleHref = `/articles/${slug}/`;
+const breadcrumbItems = [
+  { label: "ホーム", href: "/" },
+  ...(categoryInfo ? [{ label: categoryInfo.name, href: `/category/${categoryInfo.slug}/` }] : []),
+  { label: title, href: articleHref },
+];
+
+const jsonLd = [
+  articleSchema({ title, description, href: articleHref, pubDate, updatedDate, image: ogImage }),
+  breadcrumbListSchema(breadcrumbItems),
+];
 ---
 
-<BaseLayout title={title} description={description} ogImage={ogImage}>
+<BaseLayout title={title} description={description} ogImage={ogImage} jsonLd={jsonLd}>
   <article>
+    <Breadcrumbs items={breadcrumbItems} />
+
     {categoryInfo && (
       <a
         href={`/category/${categoryInfo.slug}/`}
@@ -46,4 +64,6 @@ const dateFormat: Intl.DateTimeFormatOptions = { year: "numeric", month: "long",
       <slot />
     </div>
   </article>
+
+  <RelatedArticles currentId={slug} category={category} />
 </BaseLayout>

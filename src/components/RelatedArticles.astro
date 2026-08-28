@@ -1,0 +1,49 @@
+---
+import { getCollection } from "astro:content";
+
+interface Props {
+  currentId: string;
+  category: string;
+  limit?: number;
+}
+
+const { currentId, category, limit = 4 } = Astro.props;
+
+const all = await getCollection("articles", ({ data }) => !data.draft);
+
+const sameCategory = all
+  .filter((a) => a.id !== currentId && a.data.category === category)
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+let related = sameCategory.slice(0, limit);
+
+if (related.length < limit) {
+  const pickedIds = new Set([currentId, ...related.map((a) => a.id)]);
+  const fallback = all
+    .filter((a) => !pickedIds.has(a.id))
+    .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+    .slice(0, limit - related.length);
+  related = [...related, ...fallback];
+}
+---
+
+{
+  related.length > 0 && (
+    <aside class="mt-14 border-t border-slate-200 pt-10">
+      <h2 class="mb-5 text-lg font-extrabold text-ink">関連記事</h2>
+      <div class="grid gap-4 sm:grid-cols-2">
+        {related.map((article) => (
+          <a
+            href={`/articles/${article.id}/`}
+            class="group flex flex-col gap-2 rounded border border-slate-200 p-5"
+          >
+            <span class="text-[15px] font-bold leading-snug text-ink group-hover:underline">
+              {article.data.title}
+            </span>
+            <span class="text-[13px] leading-relaxed text-ink-muted">{article.data.description}</span>
+          </a>
+        ))}
+      </div>
+    </aside>
+  )
+}

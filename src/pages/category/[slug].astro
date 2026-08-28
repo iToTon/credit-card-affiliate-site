@@ -1,7 +1,9 @@
 ---
 import { getCollection } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import Breadcrumbs from "../../components/Breadcrumbs.astro";
 import { categories } from "../../site.config";
+import { breadcrumbListSchema } from "../../schema";
 
 export async function getStaticPaths() {
   return categories.map((c) => ({
@@ -16,9 +18,19 @@ const allArticles = await getCollection(
   ({ data }) => !data.draft && data.category === category.slug,
 );
 const sorted = allArticles.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+const breadcrumbItems = [
+  { label: "ホーム", href: "/" },
+  { label: category.name, href: `/category/${category.slug}/` },
+];
 ---
 
-<BaseLayout title={category.name} description={category.description}>
+<BaseLayout
+  title={category.name}
+  description={category.description}
+  jsonLd={[breadcrumbListSchema(breadcrumbItems)]}
+>
+  <Breadcrumbs items={breadcrumbItems} />
   <h1 class="mb-2 text-2xl font-extrabold tracking-tight text-ink">{category.name}</h1>
   <p class="mb-8 text-slate-600">{category.description}</p>
 

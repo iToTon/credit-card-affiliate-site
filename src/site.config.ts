@@ -26,12 +26,61 @@ export const siteConfig = {
 // 新しいASPと提携したら、この配列に追加するだけでOKです。
 export const asps = ["A8.net"] as const;
 
-// 記事カテゴリ(サブジャンル)。最初は「クレジットカード比較」のみ。後で追加可能。
+// アクセス解析(GA4)・Search Console連携用。値が空文字の間は何も出力されない。
+// 導入時はidやcontentの値を埋めるだけでOK(BaseLayout.astro側で条件分岐済み)。
+export const analyticsConfig = {
+  // GA4測定ID。例: "G-XXXXXXXXXX"
+  gaMeasurementId: "",
+  // Search Console のHTMLタグ確認用content値
+  googleSiteVerification: "",
+} as const;
+
+// 記事カテゴリ(サブジャンル)。
 export const categories = [
   {
-    slug: "credit-card",
-    name: "クレジットカード比較",
-    description: "年会費・還元率・特典で選ぶクレジットカードの比較記事。",
+    slug: "how-to-choose",
+    name: "選び方・比較",
+    description: "年会費・還元率・特典など、クレジットカードの選び方や比較のポイントを解説する記事。",
+  },
+  {
+    slug: "screening",
+    name: "審査・発行",
+    description: "審査の仕組みや申し込みから発行までの流れ、限度額など、審査まわりを解説する記事。",
+  },
+  {
+    slug: "how-it-works",
+    name: "使い方の基礎知識",
+    description: "リボ払い・締め日・タッチ決済など、クレジットカードの基本的な仕組みを解説する記事。",
+  },
+  {
+    slug: "points",
+    name: "ポイント・特典活用",
+    description: "ポイントやマイルを賢く貯める・使うためのコツを紹介する記事。",
+  },
+  {
+    slug: "business",
+    name: "法人・個人事業主向け",
+    description: "法人カード・ビジネスカードの選び方や、個人事業主の経費管理に関する記事。",
+  },
+  {
+    slug: "everyday-payments",
+    name: "支払い活用術",
+    description: "税金・家賃・サブスクなど、日常の支払いをクレジットカードにまとめる方法を紹介する記事。",
+  },
+  {
+    slug: "trouble",
+    name: "トラブル対応・セキュリティ",
+    description: "紛失・不正利用・海外での利用トラブルなど、困ったときの対処法を解説する記事。",
+  },
+  {
+    slug: "card-reviews",
+    name: "個別カードレビュー",
+    description: "エポスカード・楽天カードなど、個別のクレジットカードの特徴を紹介する記事。",
+  },
+  {
+    slug: "life-stage",
+    name: "属性別ガイド",
+    description: "学生・新社会人・シニア・主婦(主夫)など、属性別のクレジットカード選びガイド。",
   },
 ] as const;
 
