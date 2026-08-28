@@ -32,7 +32,7 @@ export const analyticsConfig = {
   // GA4測定ID。例: "G-XXXXXXXXXX"
   gaMeasurementId: "G-29SDF2TSCL",
   // Search Console のHTMLタグ確認用content値
-  googleSiteVerification: "yNABztlPdOkk5k21Gsr9J",
+  googleSiteVerification: "yNABztlPdOkk5k21Gsr9JN53KGwdal31lcIFxyqzFVM",
 } as const;
 
 // 記事カテゴリ(サブジャンル)。
