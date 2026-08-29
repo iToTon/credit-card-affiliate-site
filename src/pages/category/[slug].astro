@@ -1,7 +1,9 @@
 ---
 import { getCollection } from "astro:content";
+import ArticleThumb from "../../components/ArticleThumb.astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import Breadcrumbs from "../../components/Breadcrumbs.astro";
+import CategoryIcon from "../../components/CategoryIcon.astro";
 import { categories } from "../../site.config";
 import { breadcrumbListSchema } from "../../schema";
 
@@ -31,8 +33,19 @@ const breadcrumbItems = [
   jsonLd={[breadcrumbListSchema(breadcrumbItems)]}
 >
   <Breadcrumbs items={breadcrumbItems} />
-  <h1 class="mb-2 text-2xl font-extrabold tracking-tight text-ink">{category.name}</h1>
-  <p class="mb-8 leading-relaxed text-ink-muted">{category.description}</p>
+
+  <div class="mb-8 flex items-start gap-4">
+    <span
+      class="flex size-14 shrink-0 items-center justify-center rounded-2xl"
+      style={`background: ${category.tint}; color: ${category.accent};`}
+    >
+      <CategoryIcon slug={category.slug} size={28} />
+    </span>
+    <div>
+      <h1 class="mb-1.5 text-2xl font-extrabold tracking-tight text-ink">{category.name}</h1>
+      <p class="leading-relaxed text-ink-muted">{category.description}</p>
+    </div>
+  </div>
 
   {sorted.length === 0 && <p class="text-ink-muted">このカテゴリーの記事はまだありません。</p>}
   <div class="grid gap-4">
@@ -40,12 +53,20 @@ const breadcrumbItems = [
       sorted.map((article) => (
         <a
           href={`/articles/${article.id}/`}
-          class="group flex flex-col gap-2.5 rounded-2xl border border-slate-200 p-6 hover:border-blue-600"
+          class="group grid gap-4 overflow-hidden rounded-2xl border border-slate-200 hover:border-blue-600 sm:grid-cols-[168px_1fr] sm:gap-0"
         >
-          <span class="text-lg font-extrabold leading-snug text-ink group-hover:text-blue-700">
-            {article.data.title}
+          <ArticleThumb
+            slug={article.id}
+            category={article.data.category}
+            class="h-28 sm:h-full"
+            iconSize={34}
+          />
+          <span class="flex flex-col gap-2.5 px-6 pb-6 sm:py-6">
+            <span class="text-lg font-extrabold leading-snug text-ink group-hover:text-blue-700">
+              {article.data.title}
+            </span>
+            <span class="text-[13.5px] leading-relaxed text-ink-muted">{article.data.description}</span>
           </span>
-          <span class="text-[13.5px] leading-relaxed text-ink-muted">{article.data.description}</span>
         </a>
       ))
     }

@@ -1,6 +1,9 @@
 ---
 import { getCollection } from "astro:content";
+import ArticleThumb from "../components/ArticleThumb.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
+import CategoryIcon from "../components/CategoryIcon.astro";
+import HeroGraphic from "../components/HeroGraphic.astro";
 import { siteConfig, categories } from "../site.config";
 
 const allArticles = await getCollection("articles", ({ data }) => !data.draft);
@@ -10,27 +13,32 @@ const countByCategory = (slug: string) => allArticles.filter((a) => a.data.categ
 ---
 
 <BaseLayout title={siteConfig.name} description={siteConfig.description}>
-  <div class="mb-14 rounded-3xl bg-band px-7 py-12 sm:px-12 sm:py-14">
-    <h1 class="mb-4 max-w-lg text-3xl font-extrabold leading-snug tracking-tight text-ink sm:text-4xl">
-      クレジットカードの「よく分からない」を、ひとつずつ解きほぐす
-    </h1>
-    <p class="mb-8 max-w-xl leading-relaxed text-ink-muted">
-      年会費や還元率の比較から、審査・リボ払いの仕組み、紛失時の対処法まで。
-      はじめての方にも分かる言葉で、{allArticles.length}本の記事で解説しています。
-    </p>
-    <div class="flex flex-wrap gap-3">
-      <a
-        href="/articles/"
-        class="inline-block rounded-full bg-blue-600 px-7 py-3 text-sm font-bold text-white hover:bg-blue-700"
-      >
-        記事を読んでみる
-      </a>
-      <a
-        href="/category/"
-        class="inline-block rounded-full border border-slate-300 bg-canvas px-7 py-3 text-sm font-bold text-ink hover:border-blue-600 hover:text-blue-700"
-      >
-        カテゴリーから探す
-      </a>
+  <div class="mb-14 overflow-hidden rounded-3xl bg-band">
+    <div class="grid items-center gap-6 px-7 py-12 sm:px-12 sm:py-14 md:grid-cols-[1.45fr_1fr] md:gap-8">
+      <div>
+        <h1 class="mb-4 text-[26px] font-extrabold leading-snug tracking-tight text-ink sm:text-3xl">
+          クレジットカードの<wbr />「よく分からない」を、<wbr />やさしく解きほぐす
+        </h1>
+        <p class="mb-8 max-w-md leading-relaxed text-ink-muted">
+          年会費や還元率の比較から、審査・リボ払いの仕組み、紛失時の対処法まで。
+          はじめての方にも分かる言葉で、{allArticles.length}本の記事で解説しています。
+        </p>
+        <div class="flex flex-wrap gap-3">
+          <a
+            href="/articles/"
+            class="inline-block rounded-full bg-blue-600 px-7 py-3 text-sm font-bold text-white hover:bg-blue-700"
+          >
+            記事を読んでみる
+          </a>
+          <a
+            href="/category/"
+            class="inline-block rounded-full border border-slate-300 bg-canvas px-7 py-3 text-sm font-bold text-ink hover:border-blue-600 hover:text-blue-700"
+          >
+            カテゴリーから探す
+          </a>
+        </div>
+      </div>
+      <HeroGraphic class="hidden md:block" />
     </div>
   </div>
 
@@ -41,13 +49,21 @@ const countByCategory = (slug: string) => allArticles.filter((a) => a.data.categ
         categories.map((c) => (
           <a
             href={`/category/${c.slug}/`}
-            class="group flex flex-col gap-1.5 rounded-2xl border border-slate-200 px-5 py-4 hover:border-blue-600 hover:bg-blue-50"
+            class="group flex items-start gap-3.5 rounded-2xl border border-slate-200 px-5 py-4 hover:border-blue-600 hover:bg-blue-50"
           >
-            <span class="flex items-baseline gap-2">
-              <span class="font-extrabold text-ink group-hover:text-blue-700">{c.name}</span>
-              <span class="text-xs text-ink-muted">{countByCategory(c.slug)}記事</span>
+            <span
+              class="mt-0.5 flex size-10 shrink-0 items-center justify-center rounded-xl"
+              style={`background: ${c.tint}; color: ${c.accent};`}
+            >
+              <CategoryIcon slug={c.slug} size={21} />
             </span>
-            <span class="text-[13px] leading-relaxed text-ink-muted">{c.description}</span>
+            <span class="flex flex-col gap-1">
+              <span class="flex items-baseline gap-2">
+                <span class="font-extrabold text-ink group-hover:text-blue-700">{c.name}</span>
+                <span class="text-xs text-ink-muted">{countByCategory(c.slug)}記事</span>
+              </span>
+              <span class="text-[13px] leading-relaxed text-ink-muted">{c.description}</span>
+            </span>
           </a>
         ))
       }
@@ -67,17 +83,23 @@ const countByCategory = (slug: string) => allArticles.filter((a) => a.data.categ
           return (
             <a
               href={`/articles/${article.id}/`}
-              class="group flex flex-col gap-3 rounded-2xl border border-slate-200 p-6 hover:border-blue-600"
+              class="group flex flex-col overflow-hidden rounded-2xl border border-slate-200 hover:border-blue-600"
             >
-              {categoryInfo && (
-                <span class="w-fit rounded-full bg-blue-50 px-3 py-1 text-xs font-bold text-blue-700">
-                  {categoryInfo.name}
+              <ArticleThumb slug={article.id} category={article.data.category} class="aspect-[16/9]" />
+              <span class="flex flex-1 flex-col gap-3 p-6">
+                {categoryInfo && (
+                  <span
+                    class="w-fit rounded-full px-3 py-1 text-xs font-bold"
+                    style={`background: ${categoryInfo.tint}; color: ${categoryInfo.accent};`}
+                  >
+                    {categoryInfo.name}
+                  </span>
+                )}
+                <span class="text-lg font-extrabold leading-snug text-ink group-hover:text-blue-700">
+                  {article.data.title}
                 </span>
-              )}
-              <span class="text-lg font-extrabold leading-snug text-ink group-hover:text-blue-700">
-                {article.data.title}
+                <span class="text-[13px] leading-relaxed text-ink-muted">{article.data.description}</span>
               </span>
-              <span class="text-[13px] leading-relaxed text-ink-muted">{article.data.description}</span>
             </a>
           );
         })

@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "./BaseLayout.astro";
 import AdDisclosure from "../components/AdDisclosure.astro";
+import ArticleThumb from "../components/ArticleThumb.astro";
 import AuthorBox from "../components/AuthorBox.astro";
 import Breadcrumbs from "../components/Breadcrumbs.astro";
 import RelatedArticles from "../components/RelatedArticles.astro";
@@ -41,10 +42,13 @@ const jsonLd = [
   <article>
     <Breadcrumbs items={breadcrumbItems} />
 
+    <ArticleThumb slug={slug} category={category} class="mb-6 aspect-[3/1] rounded-2xl" iconSize={54} />
+
     {categoryInfo && (
       <a
         href={`/category/${categoryInfo.slug}/`}
-        class="mb-4 inline-block rounded-full bg-blue-50 px-3 py-1 text-xs font-bold text-blue-700 hover:bg-blue-100"
+        class="mb-4 inline-block rounded-full px-3 py-1 text-xs font-bold hover:underline"
+        style={`background: ${categoryInfo.tint}; color: ${categoryInfo.accent};`}
       >
         {categoryInfo.name}
       </a>

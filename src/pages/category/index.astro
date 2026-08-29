@@ -1,6 +1,7 @@
 ---
 import { getCollection } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import CategoryIcon from "../../components/CategoryIcon.astro";
 import { categories } from "../../site.config";
 
 const allArticles = await getCollection("articles", ({ data }) => !data.draft);
@@ -15,8 +16,14 @@ const countByCategory = (slug: string) => allArticles.filter((a) => a.data.categ
       categories.map((c) => (
         <a
           href={`/category/${c.slug}/`}
-          class="group flex flex-col gap-2 rounded-2xl border border-slate-200 p-6 hover:border-blue-600 hover:bg-blue-50"
+          class="group flex flex-col gap-3 rounded-2xl border border-slate-200 p-6 hover:border-blue-600 hover:bg-blue-50"
         >
+          <span
+            class="flex size-11 items-center justify-center rounded-xl"
+            style={`background: ${c.tint}; color: ${c.accent};`}
+          >
+            <CategoryIcon slug={c.slug} size={23} />
+          </span>
           <span class="flex items-baseline gap-2">
             <span class="text-lg font-extrabold text-ink group-hover:text-blue-700">{c.name}</span>
             <span class="text-xs text-ink-muted">{countByCategory(c.slug)}記事</span>

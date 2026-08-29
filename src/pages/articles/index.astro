@@ -1,5 +1,6 @@
 ---
 import { getCollection } from "astro:content";
+import ArticleThumb from "../../components/ArticleThumb.astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { categories } from "../../site.config";
 
@@ -18,17 +19,28 @@ const sorted = allArticles.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubD
         return (
           <a
             href={`/articles/${article.id}/`}
-            class="group flex flex-col gap-2.5 rounded-2xl border border-slate-200 p-6 hover:border-blue-600"
+            class="group grid gap-4 overflow-hidden rounded-2xl border border-slate-200 hover:border-blue-600 sm:grid-cols-[168px_1fr] sm:gap-0"
           >
-            {categoryInfo && (
-              <span class="w-fit rounded-full bg-blue-50 px-3 py-1 text-xs font-bold text-blue-700">
-                {categoryInfo.name}
+            <ArticleThumb
+              slug={article.id}
+              category={article.data.category}
+              class="h-28 sm:h-full"
+              iconSize={34}
+            />
+            <span class="flex flex-col gap-2.5 px-6 pb-6 sm:py-6">
+              {categoryInfo && (
+                <span
+                  class="w-fit rounded-full px-3 py-1 text-xs font-bold"
+                  style={`background: ${categoryInfo.tint}; color: ${categoryInfo.accent};`}
+                >
+                  {categoryInfo.name}
+                </span>
+              )}
+              <span class="text-lg font-extrabold leading-snug text-ink group-hover:text-blue-700">
+                {article.data.title}
               </span>
-            )}
-            <span class="text-lg font-extrabold leading-snug text-ink group-hover:text-blue-700">
-              {article.data.title}
+              <span class="text-[13.5px] leading-relaxed text-ink-muted">{article.data.description}</span>
             </span>
-            <span class="text-[13.5px] leading-relaxed text-ink-muted">{article.data.description}</span>
           </a>
         );
       })

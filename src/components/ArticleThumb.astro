@@ -1,0 +1,44 @@
+---
+import CategoryIcon from "./CategoryIcon.astro";
+import { findCategory } from "../site.config";
+
+// 記事のアイキャッチ。画像ファイルを持たず、カテゴリー色とアイコンだけで組み立てる。
+// 同じカテゴリーの記事が並んでも単調にならないよう、slugから決まる値で装飾の配置を変える。
+//
+// 寸法はこのコンポーネントでは決めず、呼び出し側が class で指定する
+// (アスペクト比を内側で固定すると、横並びレイアウトで幅がはみ出すため)。
+interface Props {
+  slug: string;
+  category: string;
+  iconSize?: number;
+  class?: string;
+}
+
+const { slug, category, iconSize = 40, class: className = "" } = Astro.props;
+
+const categoryInfo = findCategory(category);
+const accent = categoryInfo?.accent ?? "oklch(48% 0.17 253)";
+const tint = categoryInfo?.tint ?? "oklch(95% 0.03 253)";
+
+// slugから決定的に値を作り、装飾円の配置バリエーションに使う
+const hash = [...slug].reduce((acc, ch) => (acc * 31 + ch.charCodeAt(0)) % 9973, 7);
+const variant = hash % 12;
+const cx1 = 12 + (variant % 4) * 7;
+const cy1 = 20 + (variant % 3) * 12;
+const cx2 = 68 + ((variant + 2) % 4) * 7;
+const cy2 = 62 - ((variant + 1) % 3) * 14;
+---
+
+<div
+  class={`relative isolate flex w-full items-center justify-center overflow-hidden ${className}`}
+  style={`background: linear-gradient(135deg, ${tint} 0%, color-mix(in oklab, ${tint} 55%, white) 100%);`}
+  aria-hidden="true"
+>
+  <svg viewBox="0 0 100 100" preserveAspectRatio="none" class="absolute inset-0 -z-10 h-full w-full">
+    <circle cx={cx1} cy={cy1} r="26" fill={accent} opacity="0.10" />
+    <circle cx={cx2} cy={cy2} r="18" fill={accent} opacity="0.14" />
+  </svg>
+  <span style={`color: ${accent};`} class="opacity-80">
+    <CategoryIcon slug={category} size={iconSize} />
+  </span>
+</div>
