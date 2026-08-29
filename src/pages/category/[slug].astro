@@ -32,21 +32,21 @@ const breadcrumbItems = [
 >
   <Breadcrumbs items={breadcrumbItems} />
   <h1 class="mb-2 text-2xl font-extrabold tracking-tight text-ink">{category.name}</h1>
-  <p class="mb-8 text-slate-600">{category.description}</p>
+  <p class="mb-8 leading-relaxed text-ink-muted">{category.description}</p>
 
-  {sorted.length === 0 && <p class="text-slate-500">このカテゴリーの記事はまだありません。</p>}
-  <div class="divide-y divide-slate-200">
+  {sorted.length === 0 && <p class="text-ink-muted">このカテゴリーの記事はまだありません。</p>}
+  <div class="grid gap-4">
     {
       sorted.map((article) => (
-        <div class="flex flex-col gap-2.5 py-6 first:pt-0">
-          <a
-            href={`/articles/${article.id}/`}
-            class="text-lg font-extrabold text-ink hover:underline"
-          >
+        <a
+          href={`/articles/${article.id}/`}
+          class="group flex flex-col gap-2.5 rounded-2xl border border-slate-200 p-6 hover:border-blue-600"
+        >
+          <span class="text-lg font-extrabold leading-snug text-ink group-hover:text-blue-700">
             {article.data.title}
-          </a>
-          <p class="text-[13.5px] leading-relaxed text-slate-500">{article.data.description}</p>
-        </div>
+          </span>
+          <span class="text-[13.5px] leading-relaxed text-ink-muted">{article.data.description}</span>
+        </a>
       ))
     }
   </div>

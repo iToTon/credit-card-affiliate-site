@@ -2,15 +2,15 @@
 import { siteConfig } from "../site.config";
 ---
 
-<header class="border-b border-slate-200 bg-canvas">
-  <div class="mx-auto flex max-w-3xl flex-wrap items-center justify-between gap-6 px-4 py-5">
-    <a href="/" class="text-xl font-extrabold tracking-tight text-ink">
+<header class="sticky top-0 z-20 border-b border-slate-200 bg-canvas/95 backdrop-blur">
+  <div class="mx-auto flex max-w-3xl flex-wrap items-center justify-between gap-x-6 gap-y-3 px-4 py-4">
+    <a href="/" class="text-xl font-extrabold tracking-tight text-ink hover:text-blue-700">
       {siteConfig.name}
     </a>
-    <nav class="flex gap-7 text-sm">
-      <a href="/articles/" class="font-bold text-ink hover:text-blue-600">記事一覧</a>
-      <a href="/category/" class="font-bold text-ink hover:text-blue-600">カテゴリー</a>
-      <a href="/about/" class="font-bold text-ink hover:text-blue-600">運営者情報</a>
+    <nav class="flex gap-6 text-sm">
+      <a href="/articles/" class="font-bold text-ink hover:text-blue-700">記事一覧</a>
+      <a href="/category/" class="font-bold text-ink hover:text-blue-700">カテゴリー</a>
+      <a href="/about/" class="font-bold text-ink hover:text-blue-700">運営者情報</a>
     </nav>
   </div>
 </header>

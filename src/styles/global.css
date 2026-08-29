@@ -3,12 +3,13 @@
 
 @theme {
   --color-canvas: oklch(100% 0 0);
-  --color-band: oklch(97% 0.002 260);
-  --color-ink: oklch(21% 0.01 260);
-  --color-ink-muted: oklch(45% 0.01 260);
-  --color-blue-50: oklch(95% 0.025 258);
-  --color-blue-600: oklch(40% 0.19 258);
-  --color-blue-700: oklch(32% 0.17 258);
+  --color-band: oklch(97.5% 0.014 250);
+  --color-ink: oklch(24% 0.02 258);
+  --color-ink-muted: oklch(48% 0.015 258);
+  --color-blue-50: oklch(96% 0.025 253);
+  --color-blue-100: oklch(92% 0.05 253);
+  --color-blue-600: oklch(48% 0.17 253);
+  --color-blue-700: oklch(40% 0.16 253);
   --color-gold-600: oklch(62% 0.13 75);
   --color-gold-700: oklch(52% 0.12 75);
   --font-body: "Noto Sans JP", "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif;
@@ -16,4 +17,13 @@
 
 body {
   font-family: var(--font-body);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* 目次から見出しへジャンプしたとき、追従ヘッダーの下に見出しが隠れないようにする */
+:target {
+  scroll-margin-top: 5.5rem;
 }

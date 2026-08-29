@@ -6,16 +6,19 @@ interface Props {
 const { items } = Astro.props;
 ---
 
-<nav aria-label="パンくずリスト" class="mb-5 text-[13px] text-slate-500">
-  <ol class="flex flex-wrap items-center gap-1.5">
+<nav aria-label="パンくずリスト" class="mb-5 text-[13px] text-ink-muted">
+  <ol class="flex flex-wrap items-center gap-x-1.5 gap-y-1">
     {
       items.map((item, i) => (
-        <li class="flex items-center gap-1.5">
-          {i > 0 && <span aria-hidden="true">/</span>}
+        <li class="flex items-center gap-x-1.5">
+          {/* 区切り文字はラベル側に持たせ、折り返しても行頭に「/」だけが残らないようにする */}
+          {i > 0 && <span aria-hidden="true" class="text-slate-300">/</span>}
           {i === items.length - 1 ? (
-            <span aria-current="page">{item.label}</span>
+            <span aria-current="page" class="line-clamp-1">
+              {item.label}
+            </span>
           ) : (
-            <a href={item.href} class="text-blue-600 hover:underline">
+            <a href={item.href} class="whitespace-nowrap text-blue-700 hover:underline">
               {item.label}
             </a>
           )}

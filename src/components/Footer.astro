@@ -1,18 +1,37 @@
 ---
-import { siteConfig } from "../site.config";
+import { siteConfig, categories } from "../site.config";
 const year = new Date().getFullYear();
 ---
 
-<footer class="mt-12 bg-ink">
-  <div class="mx-auto max-w-3xl px-4 py-10 text-sm text-slate-300/80">
-    <p class="mb-5 max-w-xl leading-relaxed">
-      本サイトはアフィリエイトプログラム(広告)を利用しています。記事内のリンクを経由して商品・サービスに申し込むと、
-      当サイトが提携先企業から紹介料を受け取る場合があります。
-    </p>
-    <nav class="mb-5 flex flex-wrap gap-6 text-slate-300">
+<footer class="mt-16 bg-ink">
+  <div class="mx-auto max-w-3xl px-4 py-12 text-sm text-slate-300/80">
+    <div class="mb-9 grid gap-8 sm:grid-cols-2">
+      <div>
+        <p class="mb-3 text-base font-extrabold text-white">{siteConfig.name}</p>
+        <p class="max-w-sm leading-relaxed">
+          本サイトはアフィリエイトプログラム(広告)を利用しています。記事内のリンクを経由して商品・サービスに
+          申し込むと、当サイトが提携先企業から紹介料を受け取る場合があります。
+        </p>
+      </div>
+      <div>
+        <p class="mb-3 font-bold text-white">カテゴリー</p>
+        <nav class="flex flex-wrap gap-x-5 gap-y-2">
+          {
+            categories.map((c) => (
+              <a href={`/category/${c.slug}/`} class="hover:text-white">
+                {c.name}
+              </a>
+            ))
+          }
+        </nav>
+      </div>
+    </div>
+
+    <nav class="mb-5 flex flex-wrap gap-6 border-t border-white/10 pt-6 text-slate-300">
+      <a href="/articles/" class="hover:text-white">記事一覧</a>
+      <a href="/category/" class="hover:text-white">カテゴリー一覧</a>
       <a href="/about/" class="hover:text-white">運営者情報</a>
       <a href="/privacy-policy/" class="hover:text-white">プライバシーポリシー</a>
-      <a href="/articles/" class="hover:text-white">記事一覧</a>
     </nav>
     <p class="text-xs text-slate-400/70">&copy; {year} {siteConfig.name}</p>
   </div>

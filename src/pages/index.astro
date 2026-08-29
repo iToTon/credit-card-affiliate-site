@@ -4,31 +4,50 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import { siteConfig, categories } from "../site.config";
 
 const allArticles = await getCollection("articles", ({ data }) => !data.draft);
-const latest = allArticles.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()).slice(0, 10);
+const latest = allArticles.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()).slice(0, 6);
+
+const countByCategory = (slug: string) => allArticles.filter((a) => a.data.category === slug).length;
 ---
 
 <BaseLayout title={siteConfig.name} description={siteConfig.description}>
-  <div class="mb-14 rounded-lg bg-band px-8 py-14 sm:px-12">
-    <h1 class="mb-4 max-w-xl text-4xl font-extrabold tracking-tight text-ink">{siteConfig.name}</h1>
-    <p class="mb-8 max-w-lg leading-relaxed text-ink-muted">{siteConfig.description}</p>
-    <a
-      href="/articles/"
-      class="inline-block rounded-full bg-blue-600 px-8 py-3.5 text-sm font-bold text-white hover:bg-blue-700"
-    >
-      記事を読んでみる
-    </a>
+  <div class="mb-14 rounded-3xl bg-band px-7 py-12 sm:px-12 sm:py-14">
+    <h1 class="mb-4 max-w-lg text-3xl font-extrabold leading-snug tracking-tight text-ink sm:text-4xl">
+      クレジットカードの「よく分からない」を、ひとつずつ解きほぐす
+    </h1>
+    <p class="mb-8 max-w-xl leading-relaxed text-ink-muted">
+      年会費や還元率の比較から、審査・リボ払いの仕組み、紛失時の対処法まで。
+      はじめての方にも分かる言葉で、{allArticles.length}本の記事で解説しています。
+    </p>
+    <div class="flex flex-wrap gap-3">
+      <a
+        href="/articles/"
+        class="inline-block rounded-full bg-blue-600 px-7 py-3 text-sm font-bold text-white hover:bg-blue-700"
+      >
+        記事を読んでみる
+      </a>
+      <a
+        href="/category/"
+        class="inline-block rounded-full border border-slate-300 bg-canvas px-7 py-3 text-sm font-bold text-ink hover:border-blue-600 hover:text-blue-700"
+      >
+        カテゴリーから探す
+      </a>
+    </div>
   </div>
 
   <section class="mb-14">
-    <h2 class="mb-5 text-xl font-extrabold text-ink">カテゴリー</h2>
-    <div class="flex flex-wrap gap-2">
+    <h2 class="mb-5 text-xl font-extrabold text-ink">カテゴリーから探す</h2>
+    <div class="grid gap-3 sm:grid-cols-2">
       {
         categories.map((c) => (
           <a
             href={`/category/${c.slug}/`}
-            class="rounded-full bg-blue-50 px-5 py-2 text-sm font-bold text-blue-700 hover:bg-blue-600 hover:text-white"
+            class="group flex flex-col gap-1.5 rounded-2xl border border-slate-200 px-5 py-4 hover:border-blue-600 hover:bg-blue-50"
           >
-            {c.name}
+            <span class="flex items-baseline gap-2">
+              <span class="font-extrabold text-ink group-hover:text-blue-700">{c.name}</span>
+              <span class="text-xs text-ink-muted">{countByCategory(c.slug)}記事</span>
+            </span>
+            <span class="text-[13px] leading-relaxed text-ink-muted">{c.description}</span>
           </a>
         ))
       }
@@ -36,8 +55,11 @@ const latest = allArticles.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubD
   </section>
 
   <section>
-    <h2 class="mb-6 text-xl font-extrabold text-ink">新着記事</h2>
-    {latest.length === 0 && <p class="text-slate-500">まだ記事がありません。</p>}
+    <div class="mb-6 flex items-baseline justify-between gap-4">
+      <h2 class="text-xl font-extrabold text-ink">新着記事</h2>
+      <a href="/articles/" class="text-sm font-bold text-blue-700 hover:underline">すべて見る</a>
+    </div>
+    {latest.length === 0 && <p class="text-ink-muted">まだ記事がありません。</p>}
     <div class="grid gap-5 sm:grid-cols-2">
       {
         latest.map((article) => {
@@ -45,14 +67,14 @@ const latest = allArticles.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubD
           return (
             <a
               href={`/articles/${article.id}/`}
-              class="group flex flex-col gap-3 rounded border border-slate-200 p-6"
+              class="group flex flex-col gap-3 rounded-2xl border border-slate-200 p-6 hover:border-blue-600"
             >
               {categoryInfo && (
-                <span class="w-fit rounded bg-blue-50 px-2.5 py-1 text-xs font-bold text-blue-700">
+                <span class="w-fit rounded-full bg-blue-50 px-3 py-1 text-xs font-bold text-blue-700">
                   {categoryInfo.name}
                 </span>
               )}
-              <span class="text-lg font-extrabold leading-snug text-ink group-hover:underline">
+              <span class="text-lg font-extrabold leading-snug text-ink group-hover:text-blue-700">
                 {article.data.title}
               </span>
               <span class="text-[13px] leading-relaxed text-ink-muted">{article.data.description}</span>

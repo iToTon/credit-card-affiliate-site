@@ -1,0 +1,13 @@
+---
+import { siteConfig } from "../site.config";
+---
+
+<aside class="mt-12 rounded-2xl border border-slate-200 bg-band px-6 py-6">
+  <p class="mb-2 text-xs font-bold text-ink-muted">この記事を書いた人</p>
+  <p class="mb-2 text-base font-extrabold text-ink">{siteConfig.operator.name}</p>
+  <p class="mb-4 text-[13.5px] leading-relaxed text-ink-muted">
+    {siteConfig.name}の運営者です。記事は公開時点の情報をもとに作成しています。年会費・還元率・特典などの
+    条件は変更される場合があるため、お申し込みの際は必ず公式サイトで最新情報をご確認ください。
+  </p>
+  <a href="/about/" class="text-[13.5px] font-bold text-blue-700 hover:underline">運営者情報を見る</a>
+</aside>

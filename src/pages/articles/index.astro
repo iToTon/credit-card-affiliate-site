@@ -8,27 +8,28 @@ const sorted = allArticles.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubD
 ---
 
 <BaseLayout title="記事一覧" description="これまでに公開した記事の一覧です。">
-  <h1 class="mb-8 text-2xl font-extrabold tracking-tight text-ink">記事一覧</h1>
-  {sorted.length === 0 && <p class="text-slate-500">まだ記事がありません。</p>}
-  <div class="divide-y divide-slate-200">
+  <h1 class="mb-2 text-2xl font-extrabold tracking-tight text-ink">記事一覧</h1>
+  <p class="mb-8 text-ink-muted">これまでに公開した{sorted.length}本の記事を、新しい順に並べています。</p>
+  {sorted.length === 0 && <p class="text-ink-muted">まだ記事がありません。</p>}
+  <div class="grid gap-4">
     {
       sorted.map((article) => {
         const categoryInfo = categories.find((c) => c.slug === article.data.category);
         return (
-          <div class="flex flex-col gap-2.5 py-6 first:pt-0">
+          <a
+            href={`/articles/${article.id}/`}
+            class="group flex flex-col gap-2.5 rounded-2xl border border-slate-200 p-6 hover:border-blue-600"
+          >
             {categoryInfo && (
-              <span class="w-fit rounded bg-blue-50 px-2.5 py-1 text-xs font-bold text-blue-700">
+              <span class="w-fit rounded-full bg-blue-50 px-3 py-1 text-xs font-bold text-blue-700">
                 {categoryInfo.name}
               </span>
             )}
-            <a
-              href={`/articles/${article.id}/`}
-              class="text-lg font-extrabold text-ink hover:underline"
-            >
+            <span class="text-lg font-extrabold leading-snug text-ink group-hover:text-blue-700">
               {article.data.title}
-            </a>
-            <p class="text-[13.5px] leading-relaxed text-slate-500">{article.data.description}</p>
-          </div>
+            </span>
+            <span class="text-[13.5px] leading-relaxed text-ink-muted">{article.data.description}</span>
+          </a>
         );
       })
     }

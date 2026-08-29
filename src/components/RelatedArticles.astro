@@ -29,15 +29,15 @@ if (related.length < limit) {
 
 {
   related.length > 0 && (
-    <aside class="mt-14 border-t border-slate-200 pt-10">
-      <h2 class="mb-5 text-lg font-extrabold text-ink">関連記事</h2>
+    <aside class="mt-12 border-t border-slate-200 pt-10">
+      <h2 class="mb-5 text-lg font-extrabold text-ink">あわせて読みたい</h2>
       <div class="grid gap-4 sm:grid-cols-2">
         {related.map((article) => (
           <a
             href={`/articles/${article.id}/`}
-            class="group flex flex-col gap-2 rounded border border-slate-200 p-5"
+            class="group flex flex-col gap-2 rounded-2xl border border-slate-200 p-5 hover:border-blue-600"
           >
-            <span class="text-[15px] font-bold leading-snug text-ink group-hover:underline">
+            <span class="text-[15px] font-bold leading-snug text-ink group-hover:text-blue-700">
               {article.data.title}
             </span>
             <span class="text-[13px] leading-relaxed text-ink-muted">{article.data.description}</span>

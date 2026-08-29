@@ -1,15 +1,26 @@
 ---
+import { getCollection } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { categories } from "../../site.config";
+
+const allArticles = await getCollection("articles", ({ data }) => !data.draft);
+const countByCategory = (slug: string) => allArticles.filter((a) => a.data.category === slug).length;
 ---
 
 <BaseLayout title="カテゴリー一覧" description="記事カテゴリーの一覧です。">
-  <h1 class="mb-8 text-2xl font-extrabold tracking-tight text-ink">カテゴリー一覧</h1>
-  <div class="grid gap-5 sm:grid-cols-2">
+  <h1 class="mb-2 text-2xl font-extrabold tracking-tight text-ink">カテゴリー一覧</h1>
+  <p class="mb-8 text-ink-muted">知りたいテーマから記事を探せます。</p>
+  <div class="grid gap-4 sm:grid-cols-2">
     {
       categories.map((c) => (
-        <a href={`/category/${c.slug}/`} class="group flex flex-col gap-2 rounded border border-slate-200 p-6">
-          <span class="text-lg font-extrabold text-ink group-hover:underline">{c.name}</span>
+        <a
+          href={`/category/${c.slug}/`}
+          class="group flex flex-col gap-2 rounded-2xl border border-slate-200 p-6 hover:border-blue-600 hover:bg-blue-50"
+        >
+          <span class="flex items-baseline gap-2">
+            <span class="text-lg font-extrabold text-ink group-hover:text-blue-700">{c.name}</span>
+            <span class="text-xs text-ink-muted">{countByCategory(c.slug)}記事</span>
+          </span>
           <span class="text-[13px] leading-relaxed text-ink-muted">{c.description}</span>
         </a>
       ))

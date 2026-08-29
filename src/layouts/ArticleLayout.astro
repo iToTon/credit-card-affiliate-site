@@ -1,8 +1,10 @@
 ---
 import BaseLayout from "./BaseLayout.astro";
 import AdDisclosure from "../components/AdDisclosure.astro";
+import AuthorBox from "../components/AuthorBox.astro";
 import Breadcrumbs from "../components/Breadcrumbs.astro";
 import RelatedArticles from "../components/RelatedArticles.astro";
+import TableOfContents from "../components/TableOfContents.astro";
 import { categories } from "../site.config";
 import { articleSchema, breadcrumbListSchema } from "../schema";
 
@@ -14,9 +16,10 @@ interface Props {
   pubDate: Date;
   updatedDate?: Date;
   ogImage?: string;
+  headings: { depth: number; slug: string; text: string }[];
 }
 
-const { slug, title, description, category, pubDate, updatedDate, ogImage } = Astro.props;
+const { slug, title, description, category, pubDate, updatedDate, ogImage, headings } = Astro.props;
 const categoryInfo = categories.find((c) => c.slug === category);
 
 const dateFormat: Intl.DateTimeFormatOptions = { year: "numeric", month: "long", day: "numeric" };
@@ -41,13 +44,13 @@ const jsonLd = [
     {categoryInfo && (
       <a
         href={`/category/${categoryInfo.slug}/`}
-        class="mb-4 inline-block rounded bg-blue-50 px-2.5 py-1 text-xs font-bold text-blue-700 hover:underline"
+        class="mb-4 inline-block rounded-full bg-blue-50 px-3 py-1 text-xs font-bold text-blue-700 hover:bg-blue-100"
       >
         {categoryInfo.name}
       </a>
     )}
     <h1 class="mb-3 text-3xl font-extrabold leading-snug tracking-tight text-ink">{title}</h1>
-    <div class="mb-7 text-sm text-slate-500">
+    <div class="mb-7 text-sm text-ink-muted">
       <time datetime={pubDate.toISOString()}>
         {pubDate.toLocaleDateString("ja-JP", dateFormat)} 公開
       </time>
@@ -60,10 +63,14 @@ const jsonLd = [
 
     <AdDisclosure />
 
+    <TableOfContents headings={headings} />
+
     <div class="prose prose-slate max-w-none prose-headings:font-extrabold prose-headings:text-ink prose-a:text-blue-600 prose-a:no-underline hover:prose-a:underline prose-strong:text-ink">
       <slot />
     </div>
   </article>
+
+  <AuthorBox />
 
   <RelatedArticles currentId={slug} category={category} />
 </BaseLayout>
