@@ -1,0 +1,16 @@
+// Cloudflare へのデプロイ設定。
+//
+// この設定ファイルが無いと、`wrangler deploy` が「プロジェクトを自動構成する」
+// フローに入り、`astro add cloudflare` でアダプターを勝手に追加したうえで
+// ビルドをやり直してしまう。アダプターが入るとページがWorkers環境で実行され、
+// ビルド時にフォントファイルを読むOGP画像の生成が失敗する。
+//
+// このサイトは完全な静的サイトなので、ビルド済みの dist/ をそのまま
+// 静的アセットとして配信すればよい(Workerのスクリプトは不要)。
+{
+  "name": "credit-card-affiliate-site",
+  "compatibility_date": "2026-08-30",
+  "assets": {
+    "directory": "./dist"
+  }
+}
