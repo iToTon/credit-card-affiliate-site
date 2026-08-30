@@ -7,8 +7,8 @@ export const siteConfig = {
   description: "クレジットカードの比較・選び方を分かりやすく紹介するメディアです。",
   // 本番公開後のURL(末尾スラッシュなし)。astro.config.mjs の `site` とも合わせること。
   url: "https://cc-jiten.com",
-  // デフォルトのOGP画像パス(public/配下に配置)
-  defaultOgImage: "/og-default.png",
+  // デフォルトのOGP画像パス。src/pages/og/[...route].ts がビルド時に生成する。
+  defaultOgImage: "/og/site.png",
   // サイトの言語
   lang: "ja",
   // 運営者情報(プライバシーポリシー・サイトについてページ用)

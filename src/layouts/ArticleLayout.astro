@@ -26,6 +26,8 @@ const categoryInfo = categories.find((c) => c.slug === category);
 const dateFormat: Intl.DateTimeFormatOptions = { year: "numeric", month: "long", day: "numeric" };
 
 const articleHref = `/articles/${slug}/`;
+// フロントマターでの指定が無ければ、ビルド時に生成した記事別のOGP画像を使う
+const ogImageUrl = ogImage ?? `/og/${slug}.png`;
 const breadcrumbItems = [
   { label: "ホーム", href: "/" },
   ...(categoryInfo ? [{ label: categoryInfo.name, href: `/category/${categoryInfo.slug}/` }] : []),
@@ -33,12 +35,12 @@ const breadcrumbItems = [
 ];
 
 const jsonLd = [
-  articleSchema({ title, description, href: articleHref, pubDate, updatedDate, image: ogImage }),
+  articleSchema({ title, description, href: articleHref, pubDate, updatedDate, image: ogImageUrl }),
   breadcrumbListSchema(breadcrumbItems),
 ];
 ---
 
-<BaseLayout title={title} description={description} ogImage={ogImage} jsonLd={jsonLd}>
+<BaseLayout title={title} description={description} ogImage={ogImageUrl} jsonLd={jsonLd}>
   <article>
     <Breadcrumbs items={breadcrumbItems} />
 
