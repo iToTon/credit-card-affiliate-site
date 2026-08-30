@@ -1,6 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import { siteConfig } from "../site.config";
+import { siteConfig, asps } from "../site.config";
 ---
 
 <BaseLayout title="運営者情報" description="サイトの運営者情報です。">
@@ -29,7 +29,7 @@ import { siteConfig } from "../site.config";
 
     <h2>アフィリエイトプログラムについて</h2>
     <p>
-      本サイトは、A8.net、もしもアフィリエイト等のアフィリエイトプログラムに参加し、企業・サービス提供元より
+      本サイトは、{asps.join("、")}等のアフィリエイトプログラムに参加し、企業・サービス提供元より
       広告収益を得て運営しています。記事内のリンクを経由して商品・サービスに申し込みがあった場合、当サイトが
       紹介料を受け取ることがあります。ただし、紹介料の有無が記事の評価や比較結果に影響することはありません。
     </p>

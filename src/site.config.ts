@@ -24,7 +24,7 @@ export const siteConfig = {
 // 利用中のASP(アフィリエイトサービスプロバイダー)。
 // プライバシーポリシーの「広告配信について」に自動反映されます。
 // 新しいASPと提携したら、この配列に追加するだけでOKです。
-export const asps = ["A8.net"] as const;
+export const asps = ["A8.net", "AccessTrade"] as const;
 
 // アクセス解析(GA4)・Search Console連携用。値が空文字の間は何も出力されない。
 // 導入時はidやcontentの値を埋めるだけでOK(BaseLayout.astro側で条件分岐済み)。

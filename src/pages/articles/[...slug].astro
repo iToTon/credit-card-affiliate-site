@@ -11,6 +11,10 @@ export async function getStaticPaths() {
 }
 
 const { article } = Astro.props;
+// 広告表記バナーは、実際にアフィリエイト要素を含む記事にだけ出す
+// (レイアウトからは本文が見えないため、ここで生のMDXを判定して渡す)。
+// サイト全体としての広告利用の明示はフッターで常時行っている。
+const hasAds = /<AffiliateLink|AdBanner/.test(article.body ?? "");
 const { Content, headings } = await render(article);
 const { title, description, category, pubDate, updatedDate, ogImage } = article.data;
 ---
@@ -24,6 +28,7 @@ const { title, description, category, pubDate, updatedDate, ogImage } = article.
   updatedDate={updatedDate}
   ogImage={ogImage}
   headings={headings}
+  hasAds={hasAds}
 >
   <Content />
 </ArticleLayout>

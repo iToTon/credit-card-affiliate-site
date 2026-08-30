@@ -18,9 +18,21 @@ interface Props {
   updatedDate?: Date;
   ogImage?: string;
   headings: { depth: number; slug: string; text: string }[];
+  // 記事本文にアフィリエイト要素が含まれるか。広告表記バナーの出し分けに使う
+  hasAds?: boolean;
 }
 
-const { slug, title, description, category, pubDate, updatedDate, ogImage, headings } = Astro.props;
+const {
+  slug,
+  title,
+  description,
+  category,
+  pubDate,
+  updatedDate,
+  ogImage,
+  headings,
+  hasAds = false,
+} = Astro.props;
 const categoryInfo = categories.find((c) => c.slug === category);
 
 const dateFormat: Intl.DateTimeFormatOptions = { year: "numeric", month: "long", day: "numeric" };
@@ -67,7 +79,7 @@ const jsonLd = [
       )}
     </div>
 
-    <AdDisclosure />
+    {hasAds && <AdDisclosure />}
 
     <TableOfContents headings={headings} />
 
